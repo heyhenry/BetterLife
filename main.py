@@ -35,7 +35,7 @@ class MainApp(tk.Tk):
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky='nswe')
 
-        self.show_frame(SetupPage)
+        self.check_user_exists()
 
     def show_frame(self, cont):
         frame = self.frames[cont]
@@ -48,6 +48,14 @@ class MainApp(tk.Tk):
                 users_data = json.load(file)
                 for user, user_info in users_data.items():
                     users[user] = UserInfo(user_info['username'], user_info['password'], user_info['stay_logged'])
+
+    def check_user_exists(self):
+        if users['user'].username:
+            self.username.set(users['user'].username)
+            self.password.set(users['user'].password)
+            self.show_frame(LoginPage)
+        else:
+            self.show_frame(SetupPage)
 
     # custom serialization of user data to save file
     def custom_serializer(self, obj):
