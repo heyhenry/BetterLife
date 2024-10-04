@@ -95,7 +95,7 @@ class SetupPage(tk.Frame):
         form_wm.propagate(0)
         form_wm.config(width=600, height=600)
 
-        setup_title = tk.Label(form_wm, text='Setup Account', font=('helvetica', 32))
+        setup_title = tk.Label(form_wm, font=('helvetica', 32), text='Setup Account')
         username_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
         username_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.username_var)
         self.username_error = tk.Label(form_wm, font=('helvetica', 10))
@@ -105,7 +105,7 @@ class SetupPage(tk.Frame):
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
         self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10))
-        setup_submission = tk.Button(form_wm, text='Proceed', command=self.setup_procedure)
+        setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Proceed', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
         username_subtitle.place(x=170, y=130)
@@ -162,8 +162,36 @@ class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        lbl1 = tk.Label(self, text='poop')
-        lbl1.pack()
+        self.controller = controller
+
+        self.username_var = tk.StringVar()
+        self.password_var = tk.StringVar()
+
+        self.create_widgets()
+
+    def create_widgets(self):
+        login_wm = tk.Frame(self)
+        login_wm.place(relx=0.5, rely=0.5, anchor='center')
+        login_wm.propagate(0)
+        login_wm.config(width=600, height=600)
+
+        login_title = tk.Label(login_wm, font=('helvetica', 32), text='Login to BetterLife')
+        username_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
+        username_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.username_var)
+        username_error = tk.Label(login_wm, font=('helvetica', 10))
+        password_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Password:', borderwidth=2)
+        password_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.password_var)
+        password_error = tk.Label(login_wm, font=('helvetica', 10))
+        login_submission = tk.Button(login_wm, font=('helvetica', 18), text='Login')
+
+        login_title.place(x=130, y=50)
+        username_subtitle.place(x=170, y=130)
+        username_entry.place(x=170, y=150)
+        username_error.place(x=170, y=180)
+        password_subtitle.place(x=170, y=230)
+        password_entry.place(x=170, y=250)
+        password_error.place(x=170, y=280)
+        login_submission.place(x=260, y=350)
 
 class ProfilePage(tk.Frame):
     def __init__(self, parent, controller):
