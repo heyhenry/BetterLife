@@ -105,7 +105,7 @@ class SetupPage(tk.Frame):
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
         self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
-        setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Proceed', command=self.setup_procedure)
+        setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Setup', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
         username_subtitle.place(x=170, y=130)
@@ -156,7 +156,6 @@ class SetupPage(tk.Frame):
 
             # afterwards, redirects to login page
             self.controller.show_frame(LoginPage)
-
 
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -210,8 +209,23 @@ class ProfilePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        lbl2 = tk.Label(self, text='Profile Page')
-        lbl2.pack()
+        self.controller = controller
+
+        self.create_widgets()
+
+    # collection of widgets for the Profile Page
+    def create_widgets(self):
+
+        def boop(event):
+            print('ya clicked me!')
+
+        # temp
+        welcome = tk.Label(self, text='Welcome to the Profile Page')
+        welcome.pack()
+
+        click_me = tk.Label(text='Click Me!', master=self)
+        click_me.pack()
+        click_me.bind("<Button-1>", boop)
 
 if __name__ == "__main__":
     app = MainApp()
