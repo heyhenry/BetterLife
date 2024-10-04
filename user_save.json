@@ -1,7 +1,7 @@
 {
     "user": {
-        "username": "",
-        "password": "",
-        "stayed_logged": false
+        "username": "henry",
+        "password": "123123",
+        "stay_logged": false
     }
 }

@@ -19,6 +19,8 @@ class MainApp(tk.Tk):
 
         self.geometry('1200x800')
 
+        self.load_users()
+
         # login variables
         self.username = tk.StringVar()
         self.password = tk.StringVar()
@@ -39,6 +41,15 @@ class MainApp(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
 
+    def load_users(self):
+        global users
+        if os.path.exists('user_save.json'):
+            with open('user_save.json', 'r') as file:
+                users_data = json.load(file)
+                for user, user_info in users_data.items():
+                    users[user] = UserInfo(user_info['username'], user_info['password'], user_info['stay_logged'])
+
+    # custom serialization of user data to save file
     def custom_serializer(self, obj):
         if isinstance(obj, UserInfo):
             return {
@@ -73,7 +84,7 @@ class SetupPage(tk.Frame):
         password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.password_var)
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
-        setup_submission = tk.Button(form_wm, text='Proceed')
+        setup_submission = tk.Button(form_wm, text='Proceed', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
         username_subtitle.place(x=170, y=130)
@@ -96,6 +107,19 @@ class SetupPage(tk.Frame):
             self.controller.password.set(self.password_var.get())
             return True
         return False
+    
+    # process the login information
+    def setup_procedure(self):
+        if self.validate_setup():
+            users['user'].username = self.controller.username.get()
+            users['user'].password = self.controller.password.get()
+
+            json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+            with open('user_save.json', 'w') as outfile:
+                outfile.write(json_object)
+
+            self.controller.show_frame(LoginPage)
 
 
 class LoginPage(tk.Frame):
