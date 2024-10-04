@@ -84,6 +84,8 @@ class SetupPage(tk.Frame):
             self.controller.password.set(self.password_var.get())
             return True
         return False
+    
+    
 
 
 class LoginPage(tk.Frame):
