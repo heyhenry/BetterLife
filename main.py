@@ -37,24 +37,33 @@ class MainApp(tk.Tk):
 
         self.check_user_exists()
 
+    # showcases/displays the frame of choice
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
 
+    # loads up the users data
     def load_users(self):
         global users
+        # checks if the save file can be located
         if os.path.exists('user_save.json'):
+            # opens the save file and reads its data
             with open('user_save.json', 'r') as file:
                 users_data = json.load(file)
+                # store the user data as an object into the users dictionary
                 for user, user_info in users_data.items():
                     users[user] = UserInfo(user_info['username'], user_info['password'], user_info['stay_logged'])
 
+    # checks if the user already has already been verified (aka 'created')
     def check_user_exists(self):
         if users['user'].username:
             self.username.set(users['user'].username)
             self.password.set(users['user'].password)
+            
+            # if so, program startup displays the login page
             self.show_frame(LoginPage)
         else:
+            # if not, program startup displays the setup page
             self.show_frame(SetupPage)
 
     # custom serialization of user data to save file
@@ -79,6 +88,7 @@ class SetupPage(tk.Frame):
 
         self.create_widgets()
 
+    # a collection of widgets used to create the setup page
     def create_widgets(self):
         form_wm = tk.Frame(self)
         form_wm.place(relx=0.5, rely=0.5, anchor='center')
@@ -111,13 +121,21 @@ class SetupPage(tk.Frame):
 
     # check if user input is correct
     def validate_setup(self):
-        # check if input lengths are within bounds
+        # clears error messages, so only latest form submission based errors are shown
+        self.username_error.config(text='')
+        self.password_error.config(text='')
+        self.confirm_password_error.config(text='')
+
+        # check if username lengths are within 3 to 12 characters long
         if len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
             self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.', foreground='red')
+        # check if password is atleast 6 characters long
         elif len(self.password_var.get()) < 6:
             self.password_error.config(text='Invalid Password! Must be 6 or more characters.', foreground='red')
+        # check if password confirmation and password matched
         elif self.password_var.get() != self.confirm_password_var.get():
             self.confirm_password_error.config(text='Confirmation Failed! Password and Confirm Password must match.', foreground='red')
+        # if successful, sets the username and password (aka 'creates' them)
         else:
             self.controller.username.set(self.username_var.get())
             self.controller.password.set(self.password_var.get())
@@ -126,6 +144,7 @@ class SetupPage(tk.Frame):
     
     # process the login information
     def setup_procedure(self):
+        # if validation goes through, stores login details to save file
         if self.validate_setup():
             users['user'].username = self.controller.username.get()
             users['user'].password = self.controller.password.get()
@@ -135,6 +154,7 @@ class SetupPage(tk.Frame):
             with open('user_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+            # afterwards, redirects to login page
             self.controller.show_frame(LoginPage)
 
 
