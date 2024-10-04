@@ -16,6 +16,10 @@ class MainApp(tk.Tk):
 
         self.geometry('1200x800')
 
+        # login variables
+        self.username = tk.StringVar()
+        self.password = tk.StringVar()
+
         # intialise frames to an empty array
         self.frames = {}
 
@@ -67,6 +71,19 @@ class SetupPage(tk.Frame):
         confirm_password_subtitle.place(x=170, y=330)
         confirm_password_entry.place(x=170, y=350)
         setup_submission.place(x=240, y=450)
+
+    # check if user input is correct
+    def validate_registration(self):
+        # check if input lengths are within bounds
+        if len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12 or len(self.password_var.get()) < 6:
+            print('Invalid inputs!')
+        elif self.password_var.get() != self.confirm_password_var.get():
+            print('passwords confirmation failed!')
+        else:
+            self.controller.username.set(self.username_var.get())
+            self.controller.password.set(self.password_var.get())
+            return True
+        return False
 
 
 class LoginPage(tk.Frame):
