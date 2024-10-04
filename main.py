@@ -169,6 +169,7 @@ class LoginPage(tk.Frame):
 
         self.create_widgets()
 
+    # collection of widgets for the login page
     def create_widgets(self):
         login_wm = tk.Frame(self)
         login_wm.place(relx=0.5, rely=0.5, anchor='center')
@@ -178,26 +179,38 @@ class LoginPage(tk.Frame):
         login_title = tk.Label(login_wm, font=('helvetica', 32), text='Login to BetterLife')
         username_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
         username_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.username_var)
-        username_error = tk.Label(login_wm, font=('helvetica', 10))
+        self.username_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
         password_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Password:', borderwidth=2)
         password_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.password_var)
-        password_error = tk.Label(login_wm, font=('helvetica', 10))
-        login_submission = tk.Button(login_wm, font=('helvetica', 18), text='Login')
+        self.password_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
+        login_submission = tk.Button(login_wm, font=('helvetica', 18), text='Login', command=self.validate_login)
 
         login_title.place(x=130, y=50)
         username_subtitle.place(x=170, y=130)
         username_entry.place(x=170, y=150)
-        username_error.place(x=170, y=180)
+        self.username_error.place(x=170, y=180)
         password_subtitle.place(x=170, y=230)
         password_entry.place(x=170, y=250)
-        password_error.place(x=170, y=280)
+        self.password_error.place(x=170, y=280)
         login_submission.place(x=260, y=350)
+
+    # process and validate login credentials
+    def validate_login(self):
+        self.username_error.config(text='')
+        self.password_error.config(text='')
+
+        if self.username_var.get() != self.controller.username.get():
+            self.username_error.config(text='Incorrect Username! Try Again.')
+        elif self.password_var.get() != self.controller.password.get():
+            self.password_error.config(text='Invalid Password! Try Again.')
+        else:
+            self.controller.show_frame(ProfilePage)
 
 class ProfilePage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        lbl2 = tk.Label(self, text='wee')
+        lbl2 = tk.Label(self, text='Profile Page')
         lbl2.pack()
 
 if __name__ == "__main__":
