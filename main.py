@@ -1,6 +1,9 @@
 import tkinter as tk
 import json
 import os
+from userinfo import UserInfo
+
+users = {}
 
 class MainApp(tk.Tk):
     # initialise main app class
@@ -35,6 +38,15 @@ class MainApp(tk.Tk):
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
+
+    def custom_serializer(self, obj):
+        if isinstance(obj, UserInfo):
+            return {
+                "username": obj.username,
+                "password": obj.password,
+                "stay_logged": obj.stay_logged
+            }
+        return obj
 
 class SetupPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -73,7 +85,7 @@ class SetupPage(tk.Frame):
         setup_submission.place(x=240, y=450)
 
     # check if user input is correct
-    def validate_registration(self):
+    def validate_setup(self):
         # check if input lengths are within bounds
         if len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12 or len(self.password_var.get()) < 6:
             print('Invalid inputs!')
@@ -84,8 +96,6 @@ class SetupPage(tk.Frame):
             self.controller.password.set(self.password_var.get())
             return True
         return False
-    
-    
 
 
 class LoginPage(tk.Frame):
