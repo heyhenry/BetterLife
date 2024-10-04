@@ -98,13 +98,13 @@ class SetupPage(tk.Frame):
         setup_title = tk.Label(form_wm, font=('helvetica', 32), text='Setup Account')
         username_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
         username_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.username_var)
-        self.username_error = tk.Label(form_wm, font=('helvetica', 10))
+        self.username_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
         password_subtitle = tk.Label(form_wm, text='Password:', font=('helvetica', 12), borderwidth=2)
         password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.password_var)
-        self.password_error = tk.Label(form_wm, font=('helvetica', 10))
+        self.password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
-        self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10))
+        self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
         setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Proceed', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
@@ -128,13 +128,13 @@ class SetupPage(tk.Frame):
 
         # check if username lengths are within 3 to 12 characters long
         if len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
-            self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.', foreground='red')
+            self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.')
         # check if password is atleast 6 characters long
         elif len(self.password_var.get()) < 6:
-            self.password_error.config(text='Invalid Password! Must be 6 or more characters.', foreground='red')
+            self.password_error.config(text='Invalid Password! Must be 6 or more characters.')
         # check if password confirmation and password matched
         elif self.password_var.get() != self.confirm_password_var.get():
-            self.confirm_password_error.config(text='Confirmation Failed! Password and Confirm Password must match.', foreground='red')
+            self.confirm_password_error.config(text='Confirmation Failed! Password and Confirm Password must match.')
         # if successful, sets the username and password (aka 'creates' them)
         else:
             self.controller.username.set(self.username_var.get())
