@@ -98,25 +98,30 @@ class SetupPage(tk.Frame):
         form_wm.config(width=600, height=600)
 
         setup_title = tk.Label(form_wm, font=('helvetica', 32), text='Setup Account')
+
         display_name_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Display Name:')
         display_name_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.display_name_var)
-        display_name_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
+        self.display_name_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
+
         username_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
         username_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.username_var)
         self.username_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
+
         password_subtitle = tk.Label(form_wm, text='Password:', font=('helvetica', 12), borderwidth=2)
         password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.password_var)
         self.password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
+
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
         self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
+
         setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Setup', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
         
         display_name_subtitle.place(x=170, y=130)
         display_name_entry.place(x=170, y=150)
-        display_name_error.place(x=170, y=180)
+        self.display_name_error.place(x=170, y=180)
 
         username_subtitle.place(x=170, y=230)
         username_entry.place(x=170, y=250)
@@ -135,12 +140,15 @@ class SetupPage(tk.Frame):
     # check if user input is correct
     def validate_setup(self):
         # clears error messages, so only latest form submission based errors are shown
+        self.display_name_error.config(text='')
         self.username_error.config(text='')
         self.password_error.config(text='')
         self.confirm_password_error.config(text='')
 
+        if len(self.display_name_var.get()) < 1 or len(self.display_name_var.get()) > 12:
+            self.display_name_error.config(text='Invalid Name! Must be between 3 - 12 characters.')
         # check if username lengths are within 3 to 12 characters long
-        if len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
+        elif len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
             self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.')
         # check if password is atleast 6 characters long
         elif len(self.password_var.get()) < 6:
