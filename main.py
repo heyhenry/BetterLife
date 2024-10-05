@@ -216,16 +216,31 @@ class ProfilePage(tk.Frame):
     # collection of widgets for the Profile Page
     def create_widgets(self):
 
-        def boop(event):
-            print('ya clicked me!')
+        menu_bar = tk.Frame(self, background='blue', width=200, height=800)
+        search_bar = tk.Frame(self, background='grey', width=1000, height=50)
+        user_section = tk.Frame(self, background='red', width=1000, height=300)
+        something_section = tk.Frame(self, background='black', width=600, height=250)
+        badges_section = tk.Frame(self, background='magenta', width=600, height=200)
+        graph_section = tk.Frame(self, background='brown', width=300, height=400)
 
-        # temp
-        welcome = tk.Label(self, text='Welcome to the Profile Page')
-        welcome.pack()
 
-        click_me = tk.Label(text='Click Me!', master=self)
-        click_me.pack()
-        click_me.bind("<Button-1>", boop)
+        menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
+        search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
+        user_section.grid(row=1, column=1, columnspan=2, sticky='nswe')
+        something_section.grid(row=2, column=1, sticky='nswe')
+        badges_section.grid(row=3, column=1, sticky='nswe')
+        graph_section.grid(row=2, rowspan=2, column=2, sticky='nswe')
+
+        # def boop(event):
+        #     print('ya clicked me!')
+
+        # # temp
+        # welcome = tk.Label(self, text='Welcome to the Profile Page')
+        # welcome.pack()
+
+        # click_me = tk.Label(text='Click Me!', master=self)
+        # click_me.pack()
+        # click_me.bind("<Button-1>", boop)
 
 if __name__ == "__main__":
     app = MainApp()
