@@ -259,8 +259,6 @@ class ProfilePage(tk.Frame):
         app_icon.image = app_icon_name_img
         app_icon.place(x=0, y=0)
 
-        
-
     # widgets contained in the search bar
     def create_search_bar(self):
         search_bar = tk.Frame(self, background='grey', width=1000, height=50)
