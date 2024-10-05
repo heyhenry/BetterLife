@@ -247,14 +247,19 @@ class ProfilePage(tk.Frame):
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
+        # get image from location
         app_icon_name_img = Image.open('./ui_assets/logo_white.png')
+        # resize image
         app_icon_name_img.thumbnail((200,200))
+        # convert image to be compatible in tkinter
         app_icon_name_img = ImageTk.PhotoImage(app_icon_name_img)
-
+        
         app_icon = tk.Label(menu_bar, image=app_icon_name_img)
         # line of code below required to have a reference so the image doesn't get collected as garbage
         app_icon.image = app_icon_name_img
-        app_icon.pack()
+        app_icon.place(x=0, y=0)
+
+        
 
     # widgets contained in the search bar
     def create_search_bar(self):
