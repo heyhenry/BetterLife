@@ -223,7 +223,6 @@ class ProfilePage(tk.Frame):
         badges_section = tk.Frame(self, background='magenta', width=600, height=200)
         graph_section = tk.Frame(self, background='brown', width=300, height=400)
 
-
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
         user_section.grid(row=1, column=1, columnspan=2, sticky='nswe')
