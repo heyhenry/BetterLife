@@ -1,7 +1,8 @@
 {
     "user": {
-        "username": "henry",
-        "password": "123123",
+        "display_name": "",
+        "username": "",
+        "password": "",
         "stay_logged": false
     }
 }

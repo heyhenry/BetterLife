@@ -52,7 +52,7 @@ class MainApp(tk.Tk):
                 users_data = json.load(file)
                 # store the user data as an object into the users dictionary
                 for user, user_info in users_data.items():
-                    users[user] = UserInfo(user_info['username'], user_info['password'], user_info['stay_logged'])
+                    users[user] = UserInfo(user_info['display_name'], user_info['username'], user_info['password'], user_info['stay_logged'])
 
     # checks if the user already has already been verified (aka 'created')
     def check_user_exists(self):
@@ -70,6 +70,7 @@ class MainApp(tk.Tk):
     def custom_serializer(self, obj):
         if isinstance(obj, UserInfo):
             return {
+                "display_name": obj.display_name,
                 "username": obj.username,
                 "password": obj.password,
                 "stay_logged": obj.stay_logged
@@ -82,6 +83,7 @@ class SetupPage(tk.Frame):
 
         self.controller = controller
 
+        self.display_name_var = tk.StringVar()
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
         self.confirm_password_var = tk.StringVar()
@@ -96,6 +98,9 @@ class SetupPage(tk.Frame):
         form_wm.config(width=600, height=600)
 
         setup_title = tk.Label(form_wm, font=('helvetica', 32), text='Setup Account')
+        display_name_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Display Name:')
+        display_name_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.display_name_var)
+        display_name_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
         username_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Username:', borderwidth=2)
         username_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.username_var)
         self.username_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
@@ -108,16 +113,24 @@ class SetupPage(tk.Frame):
         setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Setup', command=self.setup_procedure)
 
         setup_title.place(x=160, y=50)
-        username_subtitle.place(x=170, y=130)
-        username_entry.place(x=170, y=150)
-        self.username_error.place(x=170, y=180)
-        password_subtitle.place(x=170, y=230)
-        password_entry.place(x=170, y=250)
-        self.password_error.place(x=170, y=280)
-        confirm_password_subtitle.place(x=170, y=330)
-        confirm_password_entry.place(x=170, y=350)
-        self.confirm_password_error.place(x=170, y=380)
-        setup_submission.place(x=240, y=450)
+        
+        display_name_subtitle.place(x=170, y=130)
+        display_name_entry.place(x=170, y=150)
+        display_name_error.place(x=170, y=180)
+
+        username_subtitle.place(x=170, y=230)
+        username_entry.place(x=170, y=250)
+        self.username_error.place(x=170, y=280)
+        
+        password_subtitle.place(x=170, y=330)
+        password_entry.place(x=170, y=350)
+        self.password_error.place(x=170, y=380)
+        
+        confirm_password_subtitle.place(x=170, y=430)
+        confirm_password_entry.place(x=170, y=450)
+        self.confirm_password_error.place(x=170, y=480)
+        
+        setup_submission.place(x=240, y=550)
 
     # check if user input is correct
     def validate_setup(self):
