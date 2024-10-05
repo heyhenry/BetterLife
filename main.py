@@ -2,6 +2,7 @@ import tkinter as tk
 import json
 import os
 from userinfo import UserInfo
+from PIL import Image, ImageTk
 
 users = {}
 
@@ -145,9 +146,10 @@ class SetupPage(tk.Frame):
         self.password_error.config(text='')
         self.confirm_password_error.config(text='')
 
+        # check if name length is within 3 to 12 characters
         if len(self.display_name_var.get()) < 1 or len(self.display_name_var.get()) > 12:
             self.display_name_error.config(text='Invalid Name! Must be between 3 - 12 characters.')
-        # check if username lengths are within 3 to 12 characters long
+        # check if username lengths is within 3 to 12 characters 
         elif len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
             self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.')
         # check if password is atleast 6 characters long
@@ -232,23 +234,51 @@ class ProfilePage(tk.Frame):
 
         self.controller = controller
 
-        self.create_widgets()
+        self.create_menu_bar()
+        self.create_search_bar()
+        self.create_user_section()
+        self.create_something_section()
+        self.create_badges_section()
+        self.create_graph_section()
 
     # collection of widgets for the Profile Page
-    def create_widgets(self):
-
+    # widgets contained in the menu bar
+    def create_menu_bar(self):
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
-        search_bar = tk.Frame(self, background='grey', width=1000, height=50)
-        user_section = tk.Frame(self, background='red', width=1000, height=300)
-        something_section = tk.Frame(self, background='black', width=600, height=250)
-        badges_section = tk.Frame(self, background='magenta', width=600, height=200)
-        graph_section = tk.Frame(self, background='brown', width=300, height=400)
-
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
+
+        app_icon_name_img = Image.open('./ui_assets/logo_white.png')
+        app_icon_name_img.thumbnail((200,200))
+        app_icon_name_img = ImageTk.PhotoImage(app_icon_name_img)
+
+        app_icon = tk.Label(menu_bar, image=app_icon_name_img)
+        # line of code below required to have a reference so the image doesn't get collected as garbage
+        app_icon.image = app_icon_name_img
+        app_icon.pack()
+
+    # widgets contained in the search bar
+    def create_search_bar(self):
+        search_bar = tk.Frame(self, background='grey', width=1000, height=50)
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
+    
+    # widgets contained in the user section
+    def create_user_section(self):
+        user_section = tk.Frame(self, background='red', width=1000, height=300)
         user_section.grid(row=1, column=1, columnspan=2, sticky='nswe')
+    
+    # widgets contained in the something section
+    def create_something_section(self):
+        something_section = tk.Frame(self, background='black', width=600, height=250)
         something_section.grid(row=2, column=1, sticky='nswe')
+    
+    # widgets contained in the badges section
+    def create_badges_section(self):
+        badges_section = tk.Frame(self, background='magenta', width=600, height=200)
         badges_section.grid(row=3, column=1, sticky='nswe')
+    
+    # widgets contained in the badges section
+    def create_graph_section(self):
+        graph_section = tk.Frame(self, background='brown', width=300, height=400)
         graph_section.grid(row=2, rowspan=2, column=2, sticky='nswe')
 
         # def boop(event):
