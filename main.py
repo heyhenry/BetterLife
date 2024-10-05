@@ -193,7 +193,7 @@ class LoginPage(tk.Frame):
 
     # collection of widgets for the login page
     def create_widgets(self):
-        login_wm = tk.Frame(self)
+        login_wm = tk.Frame(self, highlightbackground='black', highlightthickness=2)
         login_wm.place(relx=0.5, rely=0.5, anchor='center')
         login_wm.propagate(0)
         login_wm.config(width=600, height=600)
@@ -294,6 +294,17 @@ class ProfilePage(tk.Frame):
         # click_me = tk.Label(text='Click Me!', master=self)
         # click_me.pack()
         # click_me.bind("<Button-1>", boop)
+
+class SettingsPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        self.controller = controller
+
+    # def create_widgets(self):
+        
+
+
 
 if __name__ == "__main__":
     app = MainApp()
