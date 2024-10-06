@@ -63,7 +63,7 @@ class MainApp(tk.Tk):
             self.password.set(users['user'].password)
             
             # if so, program startup displays the login page
-            self.show_frame(SettingsPage)
+            self.show_frame(ProfilePage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
@@ -84,6 +84,11 @@ class SetupPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
+
+        self.display_name_var = tk.StringVar()
+        self.username_var = tk.StringVar()
+        self.password_var = tk.StringVar()
+        self.confirm_password_var = tk.StringVar()
 
         self.create_widgets()
 
@@ -243,14 +248,24 @@ class ProfilePage(tk.Frame):
         app_icon_name_img.thumbnail((200,200))
         # convert image to be compatible in tkinter
         app_icon_name_img = ImageTk.PhotoImage(app_icon_name_img)
-        
         app_icon = tk.Label(menu_bar, image=app_icon_name_img)
         # line of code below required to have a reference so the image doesn't get collected as garbage
         app_icon.image = app_icon_name_img
-        app_icon.place(x=0, y=0)
 
-        temp_settings_btn = tk.Button(menu_bar, text='Settings', command=lambda:self.controller.show_frame(SettingsPage))
-        temp_settings_btn.place(x=50, y=300)
+        profile_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Profile', command=lambda:self.controller.show_frame(ProfilePage))
+        workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout')
+        habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits')
+        nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition')
+        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
+
+        app_icon.place(x=0, y=0)
+        
+        profile_btn.place(x=50, y=300, width=100)
+        workout_btn.place(x=50, y=350, width=100)
+        habits_btn.place(x=50, y=400, width=100)
+        nutrition_btn.place(x=50, y=450, width=100)
+        settings_btn.place(x=50, y=500, width=100)
+
 
     # widgets contained in the search bar
     def create_search_bar(self):
