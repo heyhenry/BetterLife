@@ -396,8 +396,11 @@ class WorkoutPage(tk.Frame):
 
         self.controller = controller
 
-        temp_lbl = tk.Label(self, text='Welcome to the Workout Page!')
-        temp_lbl.pack()
+    
+
+
+
+
 
 class HabitsPage(tk.Frame):
     def __init__(self, parent, controller):
