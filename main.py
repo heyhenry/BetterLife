@@ -304,12 +304,49 @@ class SettingsPage(tk.Frame):
 
         self.controller = controller
 
+        self.display_name_var = tk.StringVar()
+        self.username_var = tk.StringVar()
+        self.password_var = tk.StringVar()
+
         self.create_widgets()
 
     def create_widgets(self):
-        hi = tk.Label(self, text='Hi this is the settings page!')
-        hi.pack()
+        update_wm = tk.Frame(self, highlightbackground='black', highlightthickness=2)
+        update_wm.place(relx=0.5, rely=0.5, anchor='center')
+        update_wm.propagate(0)
+        update_wm.config(width=600, height=600)
 
+        settings_title = tk.Label(update_wm, font=('helvetiva', 32), text='Settings | Update Details')
+         
+        display_name_subtitle = tk.Label(update_wm, font=('helvetica', 12), text='Display Name:')
+        display_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.display_name_var)
+        self.display_name_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
+
+        username_subtitle = tk.Label(update_wm, text='Username:')
+        username_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.username_var)
+        self.username_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
+
+        password_subtitle = tk.Label(update_wm, text='Password:')
+        password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.password_var)
+        self.password_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
+
+        update_submission = tk.Button(update_wm, text='Update Details')
+
+        settings_title.place(x=50, y=50)
+    
+        display_name_subtitle.place(x=170, y=130)
+        display_entry.place(x=170, y=150)
+        self.display_name_error.place(x=170, y=180)
+
+        username_subtitle.place(x=170, y=230)
+        username_entry.place(x=170, y=250)
+        self.username_error.place(x=170, y=280)
+
+        password_subtitle.place(x=170, y=330)
+        password_entry.place(x=170, y=350)
+        self.password_error.place(x=170, y=380)
+
+        update_submission.place(x=240, y=550)
 
 if __name__ == "__main__":
     app = MainApp()
