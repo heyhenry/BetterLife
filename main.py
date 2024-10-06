@@ -381,6 +381,7 @@ class SettingsPage(tk.Frame):
 
             self.controller.show_frame(LoginPage)
 
+    # resets input field values to original pre-redirect to profile page
     def cancel(self):
         self.display_name_var.set(users['user'].display_name)
         self.username_var.set(users['user'].username)
