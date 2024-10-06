@@ -31,7 +31,7 @@ class MainApp(tk.Tk):
         self.frames = {}
 
         # iterate through the tuple that consists of frames (pages)
-        for F in (SetupPage, LoginPage, ProfilePage, SettingsPage):
+        for F in (SetupPage, LoginPage, ProfilePage, SettingsPage, WorkoutPage, HabitsPage, NutritionPage):
             frame = F(container, self)
             # initialise frame of each page's object
             self.frames[F] = frame
@@ -228,7 +228,7 @@ class ProfilePage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
-
+        print('you switched to the profile page.')
         self.create_menu_bar()
         self.create_search_bar()
         self.create_user_section()
@@ -253,9 +253,9 @@ class ProfilePage(tk.Frame):
         app_icon.image = app_icon_name_img
 
         profile_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Profile', command=lambda:self.controller.show_frame(ProfilePage))
-        workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout')
-        habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits')
-        nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition')
+        workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout', command=lambda:self.controller.show_frame(WorkoutPage))
+        habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits', command=lambda:self.controller.show_frame(HabitsPage))
+        nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
         settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
 
         app_icon.place(x=0, y=0)
@@ -385,6 +385,33 @@ class SettingsPage(tk.Frame):
                 outfile.write(json_object)
 
             self.controller.show_frame(LoginPage)
+
+class WorkoutPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        self.controller = controller
+
+        temp_lbl = tk.Label(self, text='Welcome to the Workout Page!')
+        temp_lbl.pack()
+
+class HabitsPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        self.controller = controller
+
+        temp_lbl = tk.Label(self, text='Welcome to the Habits Page!')
+        temp_lbl.pack()
+
+class NutritionPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+
+        self.controller = controller
+
+        temp_lbl = tk.Label(self, text='Welcome to the Nutrition Page!')
+        temp_lbl.pack()
 
 if __name__ == "__main__":
     app = MainApp()
