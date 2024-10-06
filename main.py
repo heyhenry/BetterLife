@@ -372,9 +372,16 @@ class SettingsPage(tk.Frame):
         elif self.password_var.get() != self.confirm_password_var.get():
             self.password_error.config(text='Confirmation Failed! Password and Confirm Password must match.')
         else:
-            self.controller.display_name.set(self.display_name_var.get())
-            self.controller.username.set(self.username_var.get())
-            self.controller.password.set(self.password_var.get())
+            users['user'].display_name = self.display_name_var.get()
+            users['user'].username = self.username_var.get()
+            users['user'].password = self.password_var.get()
+
+            json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+            with open('user_save.json', 'w') as outfile:
+                outfile.write(json_object)
+
+            self.controller.show_frame(LoginPage)
 
 if __name__ == "__main__":
     app = MainApp()
