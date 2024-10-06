@@ -62,7 +62,7 @@ class MainApp(tk.Tk):
             self.password.set(users['user'].password)
             
             # if so, program startup displays the login page
-            self.show_frame(LoginPage)
+            self.show_frame(SettingsPage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
@@ -307,6 +307,7 @@ class SettingsPage(tk.Frame):
         self.display_name_var = tk.StringVar()
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
+        self.confirm_password_var = tk.StringVar()
 
         self.create_widgets()
 
@@ -314,7 +315,7 @@ class SettingsPage(tk.Frame):
         update_wm = tk.Frame(self, highlightbackground='black', highlightthickness=2)
         update_wm.place(relx=0.5, rely=0.5, anchor='center')
         update_wm.propagate(0)
-        update_wm.config(width=600, height=600)
+        update_wm.config(width=800, height=600)
 
         settings_title = tk.Label(update_wm, font=('helvetiva', 32), text='Settings | Update Details')
          
@@ -322,31 +323,39 @@ class SettingsPage(tk.Frame):
         display_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.display_name_var)
         self.display_name_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
 
-        username_subtitle = tk.Label(update_wm, text='Username:')
+        username_subtitle = tk.Label(update_wm, font=('helvetica', 12), text='Username:')
         username_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.username_var)
         self.username_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
 
-        password_subtitle = tk.Label(update_wm, text='Password:')
+        password_subtitle = tk.Label(update_wm, font=('helvetica', 12), text='Password:')
         password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.password_var)
         self.password_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
 
-        update_submission = tk.Button(update_wm, text='Update Details')
+        confirm_password_subtitle = tk.Label(update_wm, font=('helvetica', 12), text='Confirm Password:')
+        confirm_password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
+        self.confirm_password_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
 
-        settings_title.place(x=50, y=50)
+        update_submission = tk.Button(update_wm, font=('helvetica', 18), text='Update Details')
+
+        settings_title.place(x=170, y=50)
     
-        display_name_subtitle.place(x=170, y=130)
-        display_entry.place(x=170, y=150)
-        self.display_name_error.place(x=170, y=180)
+        display_name_subtitle.place(x=270, y=130)
+        display_entry.place(x=270, y=150)
+        self.display_name_error.place(x=270, y=180)
 
-        username_subtitle.place(x=170, y=230)
-        username_entry.place(x=170, y=250)
-        self.username_error.place(x=170, y=280)
+        username_subtitle.place(x=270, y=230)
+        username_entry.place(x=270, y=250)
+        self.username_error.place(x=270, y=280)
 
-        password_subtitle.place(x=170, y=330)
-        password_entry.place(x=170, y=350)
-        self.password_error.place(x=170, y=380)
+        password_subtitle.place(x=100, y=330)
+        password_entry.place(x=100, y=350)
+        self.password_error.place(x=100, y=380)
 
-        update_submission.place(x=240, y=550)
+        confirm_password_subtitle.place(x=450, y=330)
+        confirm_password_entry.place(x=450, y=350)
+        self.confirm_password_error.place(x=450, y=380)
+
+        update_submission.place(x=300, y=450)
 
 if __name__ == "__main__":
     app = MainApp()
