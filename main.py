@@ -56,7 +56,7 @@ class MainApp(tk.Tk):
         if users['user'].username:
             
             # if so, program startup displays the login page
-            self.show_frame(LoginPage)
+            self.show_frame(SettingsPage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
@@ -352,8 +352,8 @@ class SettingsPage(tk.Frame):
         confirm_password_subtitle.place(x=450, y=330)
         confirm_password_entry.place(x=450, y=350)
 
-        update_submission.place(x=200, y=450)
-        cancel_submission.place(x=400, y=450)
+        update_submission.place(x=250, y=450)
+        cancel_submission.place(x=450, y=450)
 
     # check to ensure all rules are met for user data entry *Refer to login page for indepth understanding
     def validate_update_information(self):
