@@ -84,12 +84,7 @@ class SetupPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
-
-        self.display_name_var = tk.StringVar()
-        self.username_var = tk.StringVar()
-        self.password_var = tk.StringVar()
-        self.confirm_password_var = tk.StringVar()
-
+        
         self.create_widgets()
 
     # a collection of widgets used to create the setup page
@@ -117,7 +112,7 @@ class SetupPage(tk.Frame):
         confirm_password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
         self.confirm_password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
 
-        setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Setup', command=self.setup_procedure)
+        setup_submission = tk.Button(form_wm, font=('helvetica', 18), text='Setup', command=self.validate_setup_information)
 
         setup_title.place(x=160, y=50)
         
@@ -140,7 +135,7 @@ class SetupPage(tk.Frame):
         setup_submission.place(x=240, y=550)
 
     # check if user input is correct
-    def validate_setup(self):
+    def validate_setup_information(self):
         # clears error messages, so only latest form submission based errors are shown
         self.display_name_error.config(text='')
         self.username_error.config(text='')
@@ -161,25 +156,15 @@ class SetupPage(tk.Frame):
             self.confirm_password_error.config(text='Confirmation Failed! Password and Confirm Password must match.')
         # if successful, sets the username and password (aka 'creates' them)
         else:
-            self.controller.display_name.set(self.display_name_var.get())
-            self.controller.username.set(self.username_var.get())
-            self.controller.password.set(self.password_var.get())
-            return True
-        return False
-    
-    # process the login information
-    def setup_procedure(self):
-        # if validation goes through, stores login details to save file
-        if self.validate_setup():
-            users['user'].username = self.controller.username.get()
-            users['user'].password = self.controller.password.get()
+            users['user'].display_name = self.display_name_var.get()
+            users['user'].username = self.username_var.get()
+            users['user'].password = self.password_var.get()
 
             json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
 
             with open('user_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
-            # afterwards, redirects to login page
             self.controller.show_frame(LoginPage)
 
 class LoginPage(tk.Frame):
