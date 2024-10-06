@@ -84,7 +84,7 @@ class SetupPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
-        
+
         self.create_widgets()
 
     # a collection of widgets used to create the setup page
@@ -160,11 +160,14 @@ class SetupPage(tk.Frame):
             users['user'].username = self.username_var.get()
             users['user'].password = self.password_var.get()
 
+            # create updated json data into json object
             json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
 
+            # open the json save file and rewrite with updated json data information via json object
             with open('user_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+            # redirect to the login page upon completion
             self.controller.show_frame(LoginPage)
 
 class LoginPage(tk.Frame):
