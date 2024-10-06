@@ -56,7 +56,7 @@ class MainApp(tk.Tk):
         if users['user'].username:
             
             # if so, program startup displays the login page
-            self.show_frame(SettingsPage)
+            self.show_frame(WorkoutPage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
@@ -396,9 +396,61 @@ class WorkoutPage(tk.Frame):
 
         self.controller = controller
 
-    
+        self.create_menu_bar()
+        self.create_search_bar()
+        self.create_title_bar()
+        self.workout_form()
+        self.weight_graph()
+        self.time_graph()
 
+    def create_menu_bar(self):
+        menu_bar = tk.Frame(self, background='blue', width=200, height=800)
+        menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
+        # get image from location
+        app_icon_name_img = Image.open('./ui_assets/logo_white.png')
+        # resize image
+        app_icon_name_img.thumbnail((200,200))
+        # convert image to be compatible in tkinter
+        app_icon_name_img = ImageTk.PhotoImage(app_icon_name_img)
+        app_icon = tk.Label(menu_bar, image=app_icon_name_img)
+        # line of code below required to have a reference so the image doesn't get collected as garbage
+        app_icon.image = app_icon_name_img
+
+        profile_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Profile', command=lambda:self.controller.show_frame(ProfilePage))
+        workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout', command=lambda:self.controller.show_frame(WorkoutPage))
+        habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits', command=lambda:self.controller.show_frame(HabitsPage))
+        nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
+        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
+
+        app_icon.place(x=0, y=0)
+        
+        profile_btn.place(x=50, y=300, width=100)
+        workout_btn.place(x=50, y=350, width=100)
+        habits_btn.place(x=50, y=400, width=100)
+        nutrition_btn.place(x=50, y=450, width=100)
+        settings_btn.place(x=50, y=500, width=100)
+
+    # widgets contained in the search bar
+    def create_search_bar(self):
+        search_bar = tk.Frame(self, background='grey', width=1000, height=50)
+        search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
+
+    def create_title_bar(self):
+        title_bar = tk.Frame(self, background='orange', width=100, height=150)
+        title_bar.grid(row=1, column=1, columnspan=2, sticky='nswe')
+
+    def workout_form(self):
+        workout_wm = tk.Frame(self, background='red', width=500, height=600)
+        workout_wm.grid(row=2, rowspan=2, column=1, sticky='nswe')
+
+    def weight_graph(self):
+        graph_one = tk.Frame(self, background='magenta', width=500, height=300)
+        graph_one.grid(row=2, column=2, sticky='nswe')
+
+    def time_graph(self):
+        graph_two = tk.Frame(self, background='green', width=500, height=300)
+        graph_two.grid(row=3, column=2, sticky='nswe')
 
 
 
