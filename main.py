@@ -22,7 +22,8 @@ class MainApp(tk.Tk):
 
         self.load_users()
 
-        # login variables
+        # login 
+        self.display_name = tk.StringVar()
         self.username = tk.StringVar()
         self.password = tk.StringVar()
 
@@ -160,6 +161,7 @@ class SetupPage(tk.Frame):
             self.confirm_password_error.config(text='Confirmation Failed! Password and Confirm Password must match.')
         # if successful, sets the username and password (aka 'creates' them)
         else:
+            self.controller.display_name.set(self.display_name_var.get())
             self.controller.username.set(self.username_var.get())
             self.controller.password.set(self.password_var.get())
             return True
@@ -304,10 +306,10 @@ class SettingsPage(tk.Frame):
 
         self.controller = controller
 
-        self.display_name_var = tk.StringVar()
-        self.username_var = tk.StringVar()
-        self.password_var = tk.StringVar()
-        self.confirm_password_var = tk.StringVar()
+        self.display_name_var = tk.StringVar(value=users['user'].display_name)
+        self.username_var = tk.StringVar(value=users['user'].username)
+        self.password_var = tk.StringVar(value=users['user'].password)
+        self.confirm_password_var = tk.StringVar(value=users['user'].password)
 
         self.create_widgets()
 
@@ -333,29 +335,46 @@ class SettingsPage(tk.Frame):
 
         confirm_password_subtitle = tk.Label(update_wm, font=('helvetica', 12), text='Confirm Password:')
         confirm_password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
-        self.confirm_password_error = tk.Label(update_wm, font=('helvetica', 10), foreground='red')
 
-        update_submission = tk.Button(update_wm, font=('helvetica', 18), text='Update Details')
+        update_submission = tk.Button(update_wm, font=('helvetica', 18), text='Update Details', command=self.validate_update_information)
 
         settings_title.place(x=170, y=50)
     
         display_name_subtitle.place(x=270, y=130)
         display_entry.place(x=270, y=150)
-        self.display_name_error.place(x=270, y=180)
+        self.display_name_error.place(x=270, y=190)
 
         username_subtitle.place(x=270, y=230)
         username_entry.place(x=270, y=250)
-        self.username_error.place(x=270, y=280)
+        self.username_error.place(x=270, y=290)
 
         password_subtitle.place(x=100, y=330)
         password_entry.place(x=100, y=350)
-        self.password_error.place(x=100, y=380)
+        self.password_error.place(x=230, y=390)
 
         confirm_password_subtitle.place(x=450, y=330)
         confirm_password_entry.place(x=450, y=350)
-        self.confirm_password_error.place(x=450, y=380)
 
         update_submission.place(x=300, y=450)
+
+    # check to ensure all rules are met for user data entry *Refer to login page for indepth understanding
+    def validate_update_information(self):
+        self.display_name_error.config(text='')
+        self.username_error.config(text='')
+        self.password_error.config(text='')
+
+        if len(self.display_name_var.get()) < 1 or len(self.display_name_var.get()) > 12:
+            self.display_name_error.config(text='Invalid Name! Must be between 3 - 12 characters.')
+        elif len(self.username_var.get()) < 3 or len(self.username_var.get()) > 12:
+            self.username_error.config(text='Invalid Username! Must be between 3 - 12 characters.')
+        elif len(self.password_var.get()) < 6:
+            self.password_error.config(text='Invalid Password! Must be 6 or more characters.')
+        elif self.password_var.get() != self.confirm_password_var.get():
+            self.password_error.config(text='Confirmation Failed! Password and Confirm Password must match.')
+        else:
+            self.controller.display_name.set(self.display_name_var.get())
+            self.controller.username.set(self.username_var.get())
+            self.controller.password.set(self.password_var.get())
 
 if __name__ == "__main__":
     app = MainApp()
