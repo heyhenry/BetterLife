@@ -333,7 +333,7 @@ class SettingsPage(tk.Frame):
         confirm_password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
 
         update_submission = tk.Button(update_wm, font=('helvetica', 18), text='Update Details', command=self.validate_update_information)
-        cancel_submission = tk.Button(update_wm, font=('helvetica', 18), text='Cancel', command=lambda:self.controller.show_frame(ProfilePage))
+        cancel_submission = tk.Button(update_wm, font=('helvetica', 18), text='Cancel', command=self.cancel)
 
         settings_title.place(x=170, y=50)
     
@@ -380,6 +380,14 @@ class SettingsPage(tk.Frame):
                 outfile.write(json_object)
 
             self.controller.show_frame(LoginPage)
+
+    def cancel(self):
+        self.display_name_var.set(users['user'].display_name)
+        self.username_var.set(users['user'].username)
+        self.password_var.set(users['user'].password)
+        self.confirm_password_var.set(users['user'].password)
+
+        self.controller.show_frame(ProfilePage)
 
 class WorkoutPage(tk.Frame):
     def __init__(self, parent, controller):
