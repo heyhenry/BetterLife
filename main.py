@@ -22,11 +22,6 @@ class MainApp(tk.Tk):
 
         self.load_users()
 
-        # login 
-        self.display_name = tk.StringVar()
-        self.username = tk.StringVar()
-        self.password = tk.StringVar()
-
         # intialise frames to an empty array
         self.frames = {}
 
@@ -59,11 +54,9 @@ class MainApp(tk.Tk):
     # checks if the user already has already been verified (aka 'created')
     def check_user_exists(self):
         if users['user'].username:
-            self.username.set(users['user'].username)
-            self.password.set(users['user'].password)
             
             # if so, program startup displays the login page
-            self.show_frame(ProfilePage)
+            self.show_frame(LoginPage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
@@ -216,9 +209,9 @@ class LoginPage(tk.Frame):
         self.username_error.config(text='')
         self.password_error.config(text='')
 
-        if self.username_var.get() != self.controller.username.get():
+        if self.username_var.get() != users['user'].username:
             self.username_error.config(text='Incorrect Username! Try Again.')
-        elif self.password_var.get() != self.controller.password.get():
+        elif self.password_var.get() != users['user'].password:
             self.password_error.config(text='Invalid Password! Try Again.')
         else:
             self.controller.show_frame(ProfilePage)
@@ -228,7 +221,7 @@ class ProfilePage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         self.controller = controller
-        print('you switched to the profile page.')
+
         self.create_menu_bar()
         self.create_search_bar()
         self.create_user_section()
@@ -340,6 +333,7 @@ class SettingsPage(tk.Frame):
         confirm_password_entry = tk.Entry(update_wm, font=('helvetica', 18), textvariable=self.confirm_password_var)
 
         update_submission = tk.Button(update_wm, font=('helvetica', 18), text='Update Details', command=self.validate_update_information)
+        cancel_submission = tk.Button(update_wm, font=('helvetica', 18), text='Cancel', command=lambda:self.controller.show_frame(ProfilePage))
 
         settings_title.place(x=170, y=50)
     
@@ -358,7 +352,8 @@ class SettingsPage(tk.Frame):
         confirm_password_subtitle.place(x=450, y=330)
         confirm_password_entry.place(x=450, y=350)
 
-        update_submission.place(x=300, y=450)
+        update_submission.place(x=200, y=450)
+        cancel_submission.place(x=400, y=450)
 
     # check to ensure all rules are met for user data entry *Refer to login page for indepth understanding
     def validate_update_information(self):
