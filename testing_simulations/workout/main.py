@@ -4,7 +4,6 @@ from exercise import Exercise
 import json
 
 workouts = {'date_key' : Workout('test-date', '', {})}
-exercises_dict = {}
 
 root = tk.Tk()
 

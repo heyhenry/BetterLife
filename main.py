@@ -7,6 +7,8 @@ from workout import Workout
 from exercise import Exercise
 
 users = {}
+workouts = {}
+
 
 class MainApp(tk.Tk):
     # initialise main app class
@@ -411,6 +413,13 @@ class WorkoutPage(tk.Frame):
 
         self.controller = controller
 
+        self.exercise_name_var = tk.StringVar()
+        self.set_count_var = tk.StringVar()
+        self.rep_count_var = tk.StringVar()
+        self.weight_used_var = tk.StringVar()
+
+        self.time_spent_var = tk.StringVar()
+
         self.create_menu_bar()
         self.create_search_bar()
         self.create_title_bar()
@@ -458,6 +467,48 @@ class WorkoutPage(tk.Frame):
     def workout_form(self):
         workout_wm = tk.Frame(self, background='red', width=500, height=600)
         workout_wm.grid(row=2, rowspan=2, column=1, sticky='nswe')
+    
+        workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry')
+        
+        exercise_name = tk.Label(workout_wm, font=('helvetica', 12), text='Exercise Name:')
+        exercise_name_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=self.exercise_name_var)
+
+        set_count = tk.Label(workout_wm, font=('helvetica', 12), text='Set Count:')
+        set_count_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=self.set_count_var)
+
+        rep_count = tk.Label(workout_wm, font=('helvetica', 12), text='Rep Count:')
+        rep_count_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=self.rep_count_var)
+
+        weight_used = tk.Label(workout_wm, font=('helvetica', 12), text='Weight Used:')
+        weight_used_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=self.weight_used_var)
+
+        add_exercise = tk.Button(workout_wm, font=('helvetica', 18), text='Add Exercise')
+
+        time_spent = tk.Label(workout_wm, font=('helvetica', 12), text='Time Spent:')
+        time_spent_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=self.time_spent_var)
+
+        add_time = tk.Button(workout_wm, font=('helvetica', 18), text='Add Time')
+
+        workout_form_title.place(x=200, y=10)
+
+        exercise_name.place(x=100, y=60)
+        exercise_name_entry.place(x=100, y=90)
+
+        set_count.place(x=100, y=130)
+        set_count_entry.place(x=100, y=160)
+
+        rep_count.place(x=100, y=200)
+        rep_count_entry.place(x=100, y=230)
+
+        weight_used.place(x=100, y=270)
+        weight_used_entry.place(x=100, y=300)
+
+        add_exercise.place(x=100, y=340)
+
+        time_spent.place(x=100, y=420)
+        time_spent_entry.place(x=100, y=450)
+
+        add_time.place(x=100, y=490)
 
     def weight_graph(self):
         graph_one = tk.Frame(self, background='magenta', width=500, height=300)
