@@ -68,9 +68,14 @@ class MainApp(tk.Tk):
     # checks if the user already has already been verified (aka 'created')
     def check_user_exists(self):
         if users['user'].username:
+            # if user exists, then...
+            # if user has toggled on stay_logged status, then redirect to Profile page upon startup
+            if users['user'].stay_logged == True:
+                self.show_frame(ProfilePage)
+            # else, redirect to the Login page upon startup
+            else:
+                self.show_frame(LoginPage)
             
-            # if so, program startup displays the login page
-            self.show_frame(WorkoutPage)
         else:
             # if not, program startup displays the setup page
             self.show_frame(SetupPage)
