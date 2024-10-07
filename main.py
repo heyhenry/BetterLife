@@ -477,9 +477,14 @@ class WorkoutPage(tk.Frame):
 
         time_spent_var = tk.StringVar()
 
-        # def add_exercise_entry():
-        #     new_exercise = Exercise(exercise_name_var.get(), set_count_var.get(), rep_count_var.get(), weight_used_var.get())
-        #     workouts['user']
+        def add_exercise_entry():
+            new_exercise = Exercise(exercise_name_var.get(), set_count_var.get(), rep_count_var.get(), weight_used_var.get())
+            workouts['user'].exercise_list.append(new_exercise)
+
+            json_object = json.dumps(workouts, indent=4, default=self.controller.custom_serializer)
+
+            with open('workouts_save.json', 'w') as outfile:
+                outfile.write(json_object)
 
         workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry')
         
@@ -495,7 +500,7 @@ class WorkoutPage(tk.Frame):
         weight_used = tk.Label(workout_wm, font=('helvetica', 12), text='Weight Used:')
         weight_used_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=weight_used_var)
 
-        add_exercise = tk.Button(workout_wm, font=('helvetica', 18), text='Add Exercise')
+        add_exercise = tk.Button(workout_wm, font=('helvetica', 18), text='Add Exercise', command=add_exercise_entry)
 
         time_spent = tk.Label(workout_wm, font=('helvetica', 12), text='Time Spent:')
         time_spent_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=time_spent_var)

@@ -1,0 +1,20 @@
+{
+    "user": {
+        "date": "",
+        "time_spent": 0,
+        "exercise_list": [
+            {
+                "exercise_name": "Bench Press",
+                "set_count": "3",
+                "rep_count": "15",
+                "weight_used": "150"
+            },
+            {
+                "exercise_name": "Bench Press",
+                "set_count": "3",
+                "rep_count": "15",
+                "weight_used": "200"
+            }
+        ]
+    }
+}
