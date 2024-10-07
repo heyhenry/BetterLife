@@ -260,6 +260,29 @@ class ProfilePage(tk.Frame):
     # collection of widgets for the Profile Page
     # widgets contained in the menu bar
     def create_menu_bar(self):
+
+        # toggle the logged in status
+        def toggle_logged_status():
+            if users['user'].stay_logged == False:
+                users['user'].stay_logged = True
+
+                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+                with open('user_save.json', 'w') as outfile:
+                    outfile.write(json_object)
+
+                toggle_logged_in.config(background='green')
+
+            else:
+                users['user'].stay_logged = False
+
+                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+                with open('user_save.json', 'w') as outfile:
+                    outfile.write(json_object)
+
+                toggle_logged_in.config(background='red')
+
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
@@ -279,7 +302,7 @@ class ProfilePage(tk.Frame):
         nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
         settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage)) 
 
-        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In')       
+        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)       
 
         app_icon.place(x=0, y=0)
         
@@ -296,8 +319,6 @@ class ProfilePage(tk.Frame):
             toggle_logged_in.config(background='red')
         else:
             toggle_logged_in.config(background='green')
-
-        
 
     # widgets contained in the search bar
     def create_search_bar(self):
