@@ -23,7 +23,7 @@ class MainApp(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        self.geometry('1200x800')
+        self.geometry('1200x800+350+100')
 
         self.load_users()
         self.load_workouts()
@@ -469,6 +469,29 @@ class WorkoutPage(tk.Frame):
         self.time_graph()
 
     def create_menu_bar(self):
+
+        # toggle the logged in status
+        def toggle_logged_status():
+            if users['user'].stay_logged == False:
+                users['user'].stay_logged = True
+
+                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+                with open('user_save.json', 'w') as outfile:
+                    outfile.write(json_object)
+
+                toggle_logged_in.config(background='green')
+
+            else:
+                users['user'].stay_logged = False
+
+                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+                with open('user_save.json', 'w') as outfile:
+                    outfile.write(json_object)
+
+                toggle_logged_in.config(background='red')
+
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
@@ -488,6 +511,8 @@ class WorkoutPage(tk.Frame):
         nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
         settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
 
+        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
+
         app_icon.place(x=0, y=0)
         
         profile_btn.place(x=50, y=300, width=100)
@@ -495,6 +520,14 @@ class WorkoutPage(tk.Frame):
         habits_btn.place(x=50, y=400, width=100)
         nutrition_btn.place(x=50, y=450, width=100)
         settings_btn.place(x=50, y=500, width=100)
+
+        toggle_logged_in.place(x=40, y=700, width=120)
+
+        # changes button colour to indicate toggle status
+        if users['user'].stay_logged == False:
+            toggle_logged_in.config(background='red')
+        else:
+            toggle_logged_in.config(background='green')
 
     # widgets contained in the search bar
     def create_search_bar(self):
