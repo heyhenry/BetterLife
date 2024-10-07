@@ -25,6 +25,7 @@ class MainApp(tk.Tk):
         self.geometry('1200x800')
 
         self.load_users()
+        self.load_workouts()
 
         # intialise frames to an empty array
         self.frames = {}
@@ -54,6 +55,14 @@ class MainApp(tk.Tk):
                 # store the user data as an object into the users dictionary
                 for user, user_info in users_data.items():
                     users[user] = UserInfo(user_info['display_name'], user_info['username'], user_info['password'], user_info['stay_logged'])
+
+    def load_workouts(self):
+        global workouts
+        if os.path.exists('workouts_save.json'):
+            with open('workouts_save.json', 'r') as file:
+                workouts_data = json.load(file)
+                for workout, workout_info in workouts_data.items():
+                    workouts[workout] = Workout(workout_info['date'], workout_info['time_spent'], workout_info['exercise_list'])
 
     # checks if the user already has already been verified (aka 'created')
     def check_user_exists(self):
