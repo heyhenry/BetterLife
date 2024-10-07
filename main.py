@@ -519,25 +519,33 @@ class WorkoutPage(tk.Frame):
         today_date = date.today()
         today_date = today_date.strftime('%d-%m-%Y')
 
+        # add exercises to the workout entry for the day
         def add_exercise_entry():
+            # check if workout entry for the day has been created, if not create one with today's date being the key
             if today_date not in workouts:
                 workouts[today_date] = Workout(today_date, 0, [])
 
+            # update the workout entry for the day with new exercises performed during the day
             new_exercise = Exercise(exercise_name_var.get(), set_count_var.get(), rep_count_var.get(), weight_used_var.get())
+            # each new exercise will then be stored inside the exercise_list list as unique entries (still within the workout entry of the day)
             workouts[today_date].exercise_list.append(new_exercise)
 
+            # updates the save file with the latest data
             json_object = json.dumps(workouts, indent=4, default=self.controller.custom_serializer)
 
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+        # add the time spent during exercises in the workout entry for the day
         def add_time_entry():
-
+            # check if workout entry for the day has been created, if not create one with today's date being the key
             if today_date not in workouts:
                 workouts[today_date] = Workout(today_date, 0, [])
 
+            # update the current time_spent with addition of new time spent
             workouts[today_date].time_spent += int(time_spent_var.get())
 
+            # updates the save file with the latest data
             json_object = json.dumps(workouts, indent=4, default=self.controller.custom_serializer)
 
             with open('workouts_save.json', 'w') as outfile:
