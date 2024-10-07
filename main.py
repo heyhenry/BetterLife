@@ -468,7 +468,7 @@ class WorkoutPage(tk.Frame):
         title_bar.grid(row=1, column=1, columnspan=2, sticky='nswe')
 
     def workout_form(self):
-        workout_wm = tk.Frame(self, background='red', width=500, height=600)
+        workout_wm = tk.Frame(self, background='red', width=500, height=600, highlightbackground='black', highlightthickness=2)
         workout_wm.grid(row=2, rowspan=2, column=1, sticky='nswe')
 
         exercise_name_var = tk.StringVar()
@@ -505,47 +505,47 @@ class WorkoutPage(tk.Frame):
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
-        workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry')
+        workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry (Daily)', background='red')
         
-        exercise_name = tk.Label(workout_wm, font=('helvetica', 12), text='Exercise Name:')
+        exercise_name = tk.Label(workout_wm, font=('helvetica', 12), text='Exercise Name:', background='red')
         exercise_name_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=exercise_name_var)
 
-        set_count = tk.Label(workout_wm, font=('helvetica', 12), text='Set Count:')
+        set_count = tk.Label(workout_wm, font=('helvetica', 12), text='Set Count:', background='red')
         set_count_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=set_count_var)
 
-        rep_count = tk.Label(workout_wm, font=('helvetica', 12), text='Rep Count:')
+        rep_count = tk.Label(workout_wm, font=('helvetica', 12), text='Rep Count:', background='red')
         rep_count_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=rep_count_var)
 
-        weight_used = tk.Label(workout_wm, font=('helvetica', 12), text='Weight Used:')
+        weight_used = tk.Label(workout_wm, font=('helvetica', 12), text='Weight Used:', background='red')
         weight_used_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=weight_used_var)
 
-        add_exercise = tk.Button(workout_wm, font=('helvetica', 18), text='Add Exercise', command=add_exercise_entry)
+        add_exercise = tk.Button(workout_wm, font=('helvetica', 12), text='Add Exercise', command=add_exercise_entry)
 
-        time_spent = tk.Label(workout_wm, font=('helvetica', 12), text='Time Spent (in Mins):')
+        time_spent = tk.Label(workout_wm, font=('helvetica', 12), text='Time Spent (in Mins):', background='red')
         time_spent_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=time_spent_var)
 
-        add_time = tk.Button(workout_wm, font=('helvetica', 18), text='Add Time', command=add_time_entry)
+        add_time = tk.Button(workout_wm, font=('helvetica', 12), text='Add Time', command=add_time_entry)
 
-        workout_form_title.place(x=200, y=10)
+        workout_form_title.place(x=130, y=10)
 
-        exercise_name.place(x=100, y=60)
-        exercise_name_entry.place(x=100, y=90)
+        exercise_name.place(x=120, y=60)
+        exercise_name_entry.place(x=120, y=90)
 
-        set_count.place(x=100, y=130)
-        set_count_entry.place(x=100, y=160)
+        set_count.place(x=120, y=130)
+        set_count_entry.place(x=120, y=160)
 
-        rep_count.place(x=100, y=200)
-        rep_count_entry.place(x=100, y=230)
+        rep_count.place(x=120, y=200)
+        rep_count_entry.place(x=120, y=230)
 
-        weight_used.place(x=100, y=270)
-        weight_used_entry.place(x=100, y=300)
+        weight_used.place(x=120, y=270)
+        weight_used_entry.place(x=120, y=300)
 
-        add_exercise.place(x=100, y=340)
+        add_exercise.place(x=200, y=340)
 
-        time_spent.place(x=100, y=420)
-        time_spent_entry.place(x=100, y=450)
+        time_spent.place(x=120, y=420)
+        time_spent_entry.place(x=120, y=450)
 
-        add_time.place(x=100, y=490)
+        add_time.place(x=200, y=490)
 
     def weight_graph(self):
         graph_one = tk.Frame(self, background='magenta', width=500, height=300)
