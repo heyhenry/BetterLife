@@ -256,6 +256,7 @@ class ProfilePage(tk.Frame):
         self.create_badges_section()
         self.create_graph_section()
 
+
     # collection of widgets for the Profile Page
     # widgets contained in the menu bar
     def create_menu_bar(self):
@@ -276,7 +277,9 @@ class ProfilePage(tk.Frame):
         workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout', command=lambda:self.controller.show_frame(WorkoutPage))
         habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits', command=lambda:self.controller.show_frame(HabitsPage))
         nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
-        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
+        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage)) 
+
+        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In')       
 
         app_icon.place(x=0, y=0)
         
@@ -286,6 +289,15 @@ class ProfilePage(tk.Frame):
         nutrition_btn.place(x=50, y=450, width=100)
         settings_btn.place(x=50, y=500, width=100)
 
+        toggle_logged_in.place(x=40, y=700, width=120)
+
+        # changes button colour to indicate toggle status
+        if users['user'].stay_logged == False:
+            toggle_logged_in.config(background='red')
+        else:
+            toggle_logged_in.config(background='green')
+
+        
 
     # widgets contained in the search bar
     def create_search_bar(self):
