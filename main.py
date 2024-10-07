@@ -3,6 +3,8 @@ import json
 import os
 from userinfo import UserInfo
 from PIL import Image, ImageTk
+from workout import Workout
+from exercise import Exercise
 
 users = {}
 
@@ -69,6 +71,19 @@ class MainApp(tk.Tk):
                 "username": obj.username,
                 "password": obj.password,
                 "stay_logged": obj.stay_logged
+            }
+        elif isinstance(obj, Workout):
+            return {
+                "date": obj.date,
+                "time_spent": obj.time_spent,
+                "exercise_list": obj.exercise_list
+            }
+        elif isinstance(obj, Exercise):
+            return {
+                "exercise_name": obj.exercise_name,
+                "set_count": obj.set_count,
+                "rep_count": obj.rep_count,
+                "weight_used": obj.weight_used
             }
         return obj
 
