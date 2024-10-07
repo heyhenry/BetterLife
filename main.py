@@ -5,6 +5,7 @@ from userinfo import UserInfo
 from PIL import Image, ImageTk
 from workout import Workout
 from exercise import Exercise
+from datetime import date
 
 users = {}
 workouts = {}
@@ -477,9 +478,15 @@ class WorkoutPage(tk.Frame):
 
         time_spent_var = tk.StringVar()
 
+        today_date = date.today()
+        today_date = today_date.strftime('%d-%m-%Y')
+
         def add_exercise_entry():
+            if today_date not in workouts:
+                workouts[today_date] = Workout(today_date, 0, [])
+
             new_exercise = Exercise(exercise_name_var.get(), set_count_var.get(), rep_count_var.get(), weight_used_var.get())
-            workouts['user'].exercise_list.append(new_exercise)
+            workouts[today_date].exercise_list.append(new_exercise)
 
             json_object = json.dumps(workouts, indent=4, default=self.controller.custom_serializer)
 
@@ -487,7 +494,11 @@ class WorkoutPage(tk.Frame):
                 outfile.write(json_object)
 
         def add_time_entry():
-            workouts['user'].time_spent += int(time_spent_var.get())
+
+            if today_date not in workouts:
+                workouts[today_date] = Workout(today_date, 0, [])
+
+            workouts[today_date].time_spent += int(time_spent_var.get())
 
             json_object = json.dumps(workouts, indent=4, default=self.controller.custom_serializer)
 

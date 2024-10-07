@@ -1,19 +1,37 @@
 {
-    "user": {
-        "date": "",
-        "time_spent": 23249,
+    "07-10-2024": {
+        "date": "07-10-2024",
+        "time_spent": 4256,
         "exercise_list": [
             {
-                "exercise_name": "Bench Press",
+                "exercise_name": "bp",
                 "set_count": "3",
-                "rep_count": "15",
-                "weight_used": "150"
+                "rep_count": "20",
+                "weight_used": "123"
             },
             {
-                "exercise_name": "Bench Press",
+                "exercise_name": "bp",
                 "set_count": "3",
-                "rep_count": "15",
-                "weight_used": "200"
+                "rep_count": "20",
+                "weight_used": "123"
+            },
+            {
+                "exercise_name": "bp",
+                "set_count": "3",
+                "rep_count": "20",
+                "weight_used": "123"
+            },
+            {
+                "exercise_name": "12",
+                "set_count": "123123",
+                "rep_count": "231231",
+                "weight_used": "123123"
+            },
+            {
+                "exercise_name": "12",
+                "set_count": "123123",
+                "rep_count": "231231",
+                "weight_used": "123123"
             }
         ]
     }
