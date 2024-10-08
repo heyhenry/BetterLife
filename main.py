@@ -293,22 +293,15 @@ class ProfilePage(tk.Frame):
         def toggle_logged_status():
             if users['user'].stay_logged == False:
                 users['user'].stay_logged = True
-
                 json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-
                 with open('user_save.json', 'w') as outfile:
                     outfile.write(json_object)
-
                 toggle_logged_in.config(background='green')
-
             else:
                 users['user'].stay_logged = False
-
                 json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-
                 with open('user_save.json', 'w') as outfile:
                     outfile.write(json_object)
-
                 toggle_logged_in.config(background='red')
 
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
@@ -497,22 +490,15 @@ class WorkoutPage(tk.Frame):
         def toggle_logged_status():
             if users['user'].stay_logged == False:
                 users['user'].stay_logged = True
-
                 json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-
                 with open('user_save.json', 'w') as outfile:
                     outfile.write(json_object)
-
                 toggle_logged_in.config(background='green')
-
             else:
                 users['user'].stay_logged = False
-
                 json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-
                 with open('user_save.json', 'w') as outfile:
                     outfile.write(json_object)
-
                 toggle_logged_in.config(background='red')
 
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
@@ -560,6 +546,9 @@ class WorkoutPage(tk.Frame):
     def create_title_bar(self):
         title_bar = tk.Frame(self, background='orange', width=100, height=150)
         title_bar.grid(row=1, column=1, columnspan=2, sticky='nswe')
+
+        workout_title = tk.Label(title_bar, font=('helvetica', 48, 'bold'), text='Workout Page', background='orange')
+        workout_title.place(relx=0.5, rely=0.5, anchor='center')
 
     def workout_form(self):
         workout_wm = tk.Frame(self, background='red', width=500, height=600, highlightbackground='black', highlightthickness=2)
