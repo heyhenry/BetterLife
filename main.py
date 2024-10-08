@@ -10,7 +10,6 @@ from datetime import date
 users = {}
 workouts = {}
 
-
 class MainApp(tk.Tk):
     # initialise main app class
     def __init__(self, *args, **kwargs):
@@ -209,6 +208,8 @@ class LoginPage(tk.Frame):
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
 
+        self.password_privacy = False
+
         self.create_widgets()
 
     # collection of widgets for the login page
@@ -223,7 +224,8 @@ class LoginPage(tk.Frame):
         username_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.username_var)
         self.username_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
         password_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Password:', borderwidth=2)
-        password_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.password_var)
+        self.password_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.password_var)
+        password_censorship = tk.Button(login_wm, font=('helvetica', 12), text='Show Password', command=self.censor_toggle)
         self.password_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
         login_submission = tk.Button(login_wm, font=('helvetica', 18), text='Login', command=self.validate_login)
 
@@ -232,7 +234,8 @@ class LoginPage(tk.Frame):
         username_entry.place(x=170, y=150)
         self.username_error.place(x=170, y=180)
         password_subtitle.place(x=170, y=230)
-        password_entry.place(x=170, y=250)
+        self.password_entry.place(x=170, y=250)
+        password_censorship.place(x=450, y=250)
         self.password_error.place(x=170, y=280)
         login_submission.place(x=260, y=350)
 
@@ -247,6 +250,14 @@ class LoginPage(tk.Frame):
             self.password_error.config(text='Invalid Password! Try Again.')
         else:
             self.controller.show_frame(ProfilePage)
+    # mask password input field
+    def censor_toggle(self):
+        if self.password_privacy == False:
+            self.password_entry.config(show="*")
+            self.password_privacy = True
+        else:
+            self.password_entry.config(show="")
+            self.password_privacy = False
 
 class ProfilePage(tk.Frame):
     def __init__(self, parent, controller):
@@ -263,9 +274,8 @@ class ProfilePage(tk.Frame):
 
 
     # collection of widgets for the Profile Page
-    # widgets contained in the menu bar
+    # menu bar for all pages
     def create_menu_bar(self):
-
         # toggle the logged in status
         def toggle_logged_status():
             if users['user'].stay_logged == False:
@@ -305,9 +315,9 @@ class ProfilePage(tk.Frame):
         workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout', command=lambda:self.controller.show_frame(WorkoutPage))
         habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits', command=lambda:self.controller.show_frame(HabitsPage))
         nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
-        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage)) 
+        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
 
-        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)       
+        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
 
         app_icon.place(x=0, y=0)
         
@@ -317,7 +327,7 @@ class ProfilePage(tk.Frame):
         nutrition_btn.place(x=50, y=450, width=100)
         settings_btn.place(x=50, y=500, width=100)
 
-        toggle_logged_in.place(x=40, y=700, width=120)
+        toggle_logged_in.place(x=40, y=650, width=120)
 
         # changes button colour to indicate toggle status
         if users['user'].stay_logged == False:
@@ -468,8 +478,8 @@ class WorkoutPage(tk.Frame):
         self.weight_graph()
         self.time_graph()
 
+    # menu bar for all pages
     def create_menu_bar(self):
-
         # toggle the logged in status
         def toggle_logged_status():
             if users['user'].stay_logged == False:
@@ -521,7 +531,7 @@ class WorkoutPage(tk.Frame):
         nutrition_btn.place(x=50, y=450, width=100)
         settings_btn.place(x=50, y=500, width=100)
 
-        toggle_logged_in.place(x=40, y=700, width=120)
+        toggle_logged_in.place(x=40, y=650, width=120)
 
         # changes button colour to indicate toggle status
         if users['user'].stay_logged == False:
