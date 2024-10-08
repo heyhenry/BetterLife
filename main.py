@@ -120,7 +120,7 @@ class SetupPage(tk.Frame):
 
     # a collection of widgets used to create the setup page
     def create_widgets(self):
-        form_wm = tk.Frame(self)
+        form_wm = tk.Frame(self, highlightbackground='black', highlightthickness=2)
         form_wm.place(relx=0.5, rely=0.5, anchor='center')
         form_wm.propagate(0)
         form_wm.config(width=600, height=600)
@@ -158,7 +158,7 @@ class SetupPage(tk.Frame):
         
         password_subtitle.place(x=170, y=330)
         self.password_entry.place(x=170, y=350)
-        password_mask_btn.place(x=370, y=350)
+        password_mask_btn.place(x=450, y=350)
         self.password_error.place(x=170, y=380)
         
         confirm_password_subtitle.place(x=170, y=430)
