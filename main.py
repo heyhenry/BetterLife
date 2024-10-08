@@ -7,6 +7,12 @@ from workout import Workout
 from exercise import Exercise
 from datetime import date
 
+# note to self for next session: 
+# maybe look towards simplifying the goals for the time being. 
+# Then expand upon completion of a goal. I.e.in workouts, just track weight based workouts. forget about running, yoga, hiking for the time being.
+# If you agree tomorrow, then update the readme document related to deliverables. Maybe even just make a more compact document detailing so.
+# I.e. Brief Desc, Goal of App, Motivation of App, Deliverables, Future Expansion Deliverables.
+
 users = {}
 workouts = {}
 
