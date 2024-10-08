@@ -238,7 +238,7 @@ class LoginPage(tk.Frame):
         self.username_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
         password_subtitle = tk.Label(login_wm, font=('helvetica', 12), text='Password:', borderwidth=2)
         self.password_entry = tk.Entry(login_wm, font=('helvetica', 18), textvariable=self.password_var)
-        password_censorship = tk.Button(login_wm, font=('helvetica', 12), text='Show Password', command=self.censor_toggle)
+        password_mask_btn = tk.Button(login_wm, font=('helvetica', 12), text='Show Password', command=self.mask_password_toggle)
         self.password_error = tk.Label(login_wm, font=('helvetica', 10), foreground='red')
         login_submission = tk.Button(login_wm, font=('helvetica', 18), text='Login', command=self.validate_login)
 
@@ -248,7 +248,7 @@ class LoginPage(tk.Frame):
         self.username_error.place(x=170, y=180)
         password_subtitle.place(x=170, y=230)
         self.password_entry.place(x=170, y=250)
-        password_censorship.place(x=450, y=250)
+        password_mask_btn.place(x=450, y=250)
         self.password_error.place(x=170, y=280)
         login_submission.place(x=260, y=350)
 
@@ -264,7 +264,7 @@ class LoginPage(tk.Frame):
         else:
             self.controller.show_frame(ProfilePage)
     # mask password input field
-    def censor_toggle(self):
+    def mask_password_toggle(self):
         if self.password_privacy == False:
             self.password_entry.config(show="*")
             self.password_privacy = True
