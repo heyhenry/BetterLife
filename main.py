@@ -113,6 +113,8 @@ class SetupPage(tk.Frame):
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
         self.confirm_password_var = tk.StringVar()
+        
+        self.password_privacy = False
 
         self.create_widgets()
 
@@ -134,7 +136,8 @@ class SetupPage(tk.Frame):
         self.username_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
 
         password_subtitle = tk.Label(form_wm, text='Password:', font=('helvetica', 12), borderwidth=2)
-        password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.password_var)
+        self.password_entry = tk.Entry(form_wm, font=('helvetica', 18), textvariable=self.password_var)
+        password_mask_btn = tk.Button(form_wm, font=('helvetica', 12), text='Show Password', command=self.mask_password_toggle)
         self.password_error = tk.Label(form_wm, font=('helvetica', 10), foreground='red')
 
         confirm_password_subtitle = tk.Label(form_wm, font=('helvetica', 12), text='Confirm Password:', borderwidth=2)
@@ -154,7 +157,8 @@ class SetupPage(tk.Frame):
         self.username_error.place(x=170, y=280)
         
         password_subtitle.place(x=170, y=330)
-        password_entry.place(x=170, y=350)
+        self.password_entry.place(x=170, y=350)
+        password_mask_btn.place(x=370, y=350)
         self.password_error.place(x=170, y=380)
         
         confirm_password_subtitle.place(x=170, y=430)
@@ -198,6 +202,15 @@ class SetupPage(tk.Frame):
 
             # redirect to the login page upon completion
             self.controller.show_frame(LoginPage)
+
+    # mask password
+    def mask_password_toggle(self):
+        if self.password_privacy == False:
+            self.password_entry.config(show='*')
+            self.password_privacy = True
+        else:
+            self.password_entry.config(show='')
+            self.password_privacy = False
 
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
