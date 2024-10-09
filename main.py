@@ -351,6 +351,10 @@ class ProfilePage(tk.Frame):
     def create_search_bar(self):
         search_bar = tk.Frame(self, background='grey', width=1000, height=50)
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
+
+        logout_btn = tk.Button(self, text='Logout', command=lambda:self.controller.show_frame(LoginPage))
+        
+        logout_btn.place(x=1150, y=25, anchor='center')
     
     # widgets contained in the user section
     def create_user_section(self):
@@ -651,7 +655,6 @@ class WorkoutPage(tk.Frame):
     def time_graph(self):
         graph_two = tk.Frame(self, background='green', width=500, height=300)
         graph_two.grid(row=3, column=2, sticky='nswe')
-
 
 class HabitsPage(tk.Frame):
     def __init__(self, parent, controller):
