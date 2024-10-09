@@ -351,11 +351,11 @@ class ProfilePage(tk.Frame):
 
         app_icon.place(x=0, y=0)
         
-        profile_btn.place(x=50, y=300, width=100)
-        workout_btn.place(x=50, y=350, width=100)
-        habits_btn.place(x=50, y=400, width=100)
-        nutrition_btn.place(x=50, y=450, width=100)
-        settings_btn.place(x=50, y=500, width=100)
+        profile_btn.place(x=50, y=300)
+        workout_btn.place(x=50, y=350)
+        habits_btn.place(x=50, y=400)
+        nutrition_btn.place(x=50, y=450)
+        settings_btn.place(x=50, y=500)
 
         toggle_logged_in.place(x=40, y=650, width=120)
 
@@ -367,6 +367,18 @@ class ProfilePage(tk.Frame):
 
         profile_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, profile_btn))
         profile_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, profile_btn))
+
+        workout_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, workout_btn))
+        workout_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, workout_btn))
+
+        habits_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, habits_btn))
+        habits_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, habits_btn))
+
+        nutrition_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, nutrition_btn))
+        nutrition_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, nutrition_btn))
+
+        settings_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, settings_btn))
+        settings_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, settings_btn))
 
         # changes button colour to indicate toggle status
         if users['user'].stay_logged == False:
