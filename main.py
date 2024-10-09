@@ -323,10 +323,10 @@ class ProfilePage(tk.Frame):
                 self.controller.show_frame(SettingsPage)
 
         def on_hover(mouse_event, widget_name):
-            widget_name.config(foreground='white')
+            widget_name.config(foreground='white', font=('helvetica', 18, 'underline'))
         
         def on_exit_hover(mouse_event, widget_name):
-            widget_name.config(foreground='black')
+            widget_name.config(foreground='black', font=('helvetica', 18))
 
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
