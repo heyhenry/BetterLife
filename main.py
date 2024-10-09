@@ -322,9 +322,11 @@ class ProfilePage(tk.Frame):
             elif page_choice == 'settings':
                 self.controller.show_frame(SettingsPage)
 
+        # changes widget's text to a highlighted colour upon hovering over with mouse
         def on_hover(mouse_event, widget_name):
             widget_name.config(foreground='white', font=('helvetica', 18, 'underline'))
         
+        # changes widget's text back to original colour upon hovering over with mouse
         def on_exit_hover(mouse_event, widget_name):
             widget_name.config(foreground='black', font=('helvetica', 18))
 
@@ -359,6 +361,7 @@ class ProfilePage(tk.Frame):
 
         toggle_logged_in.place(x=40, y=650, width=120)
 
+        # bind actions
         profile_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'profile'))
         workout_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'workout'))
         habits_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'habits'))
@@ -552,6 +555,17 @@ class WorkoutPage(tk.Frame):
             elif page_choice == 'settings':
                 self.controller.show_frame(SettingsPage)
 
+        # changes widget's text to a highlighted colour upon hovering over with mouse
+        def on_hover(mouse_event, widget_name):
+            widget_name.config(foreground='white', font=('helvetica', 18, 'underline'))
+        
+        # changes widget's text back to original colour upon hovering over with mouse
+        def on_exit_hover(mouse_event, widget_name):
+            widget_name.config(foreground='black', font=('helvetica', 18))
+
+        menu_bar = tk.Frame(self, background='blue', width=200, height=800)
+        menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
+
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
@@ -573,21 +587,37 @@ class WorkoutPage(tk.Frame):
 
         toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
 
+        app_icon.place(x=0, y=0)
+        
+        profile_btn.place(x=50, y=300)
+        workout_btn.place(x=50, y=350)
+        habits_btn.place(x=50, y=400)
+        nutrition_btn.place(x=50, y=450)
+        settings_btn.place(x=50, y=500)
+
+        toggle_logged_in.place(x=40, y=650, width=120)
+
+        # bind actions
         profile_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'profile'))
         workout_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'workout'))
         habits_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'habits'))
         nutrition_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'nutrition'))
         settings_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'settings'))
 
-        app_icon.place(x=0, y=0)
-        
-        profile_btn.place(x=50, y=300, width=100)
-        workout_btn.place(x=50, y=350, width=100)
-        habits_btn.place(x=50, y=400, width=100)
-        nutrition_btn.place(x=50, y=450, width=100)
-        settings_btn.place(x=50, y=500, width=100)
+        profile_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, profile_btn))
+        profile_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, profile_btn))
 
-        toggle_logged_in.place(x=40, y=650, width=120)
+        workout_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, workout_btn))
+        workout_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, workout_btn))
+
+        habits_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, habits_btn))
+        habits_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, habits_btn))
+
+        nutrition_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, nutrition_btn))
+        nutrition_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, nutrition_btn))
+
+        settings_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, settings_btn))
+        settings_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, settings_btn))
 
         # changes button colour to indicate toggle status
         if users['user'].stay_logged == False:
