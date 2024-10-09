@@ -553,6 +553,10 @@ class WorkoutPage(tk.Frame):
         search_bar = tk.Frame(self, background='grey', width=1000, height=50)
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
 
+        logout_btn = tk.Button(self, text='Logout', command=lambda:self.controller.show_frame(LoginPage))
+
+        logout_btn.place(x=1150, y=25, anchor='center')
+
     def create_title_bar(self):
         title_bar = tk.Frame(self, background='orange', width=100, height=150)
         title_bar.grid(row=1, column=1, columnspan=2, sticky='nswe')
