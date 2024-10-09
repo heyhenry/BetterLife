@@ -312,7 +312,7 @@ class ProfilePage(tk.Frame):
         # redirects the page based on label clicked
         def redirect_page(mouse_event, page_choice):
             if page_choice == 'profile':
-                self.controller.show_frame(LoginPage)
+                self.controller.show_frame(ProfilePage)
             elif page_choice == 'workout':
                 self.controller.show_frame(WorkoutPage)
             elif page_choice == 'habits':
@@ -321,6 +321,12 @@ class ProfilePage(tk.Frame):
                 self.controller.show_frame(NutritionPage)
             elif page_choice == 'settings':
                 self.controller.show_frame(SettingsPage)
+
+        def on_hover(mouse_event, widget_name):
+            widget_name.config(foreground='white')
+        
+        def on_exit_hover(mouse_event, widget_name):
+            widget_name.config(foreground='black')
 
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
@@ -335,11 +341,11 @@ class ProfilePage(tk.Frame):
         # line of code below required to have a reference so the image doesn't get collected as garbage
         app_icon.image = app_icon_name_img
 
-        profile_btn = tk.Label(menu_bar, font=('helvetica', 12), text='Profile')
-        workout_btn = tk.Label(menu_bar, font=('helvetica', 12), text='Workout')
-        habits_btn = tk.Label(menu_bar, font=('helvetica', 12), text='Habits')
-        nutrition_btn = tk.Label(menu_bar, font=('helvetica', 12), text='Nutrition')
-        settings_btn = tk.Label(menu_bar, font=('helvetica', 12), text='Settings')        
+        profile_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Profile', background='blue', activeforeground='white')
+        workout_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Workout', background='blue')
+        habits_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Habits', background='blue')
+        nutrition_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Nutrition', background='blue')
+        settings_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Settings', background='blue')        
 
         toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
 
@@ -358,6 +364,9 @@ class ProfilePage(tk.Frame):
         habits_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'habits'))
         nutrition_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'nutrition'))
         settings_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'settings'))
+
+        profile_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, profile_btn))
+        profile_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, profile_btn))
 
         # changes button colour to indicate toggle status
         if users['user'].stay_logged == False:
@@ -518,6 +527,19 @@ class WorkoutPage(tk.Frame):
                     outfile.write(json_object)
                 toggle_logged_in.config(background='red')
 
+        # redirects the page based on label clicked
+        def redirect_page(mouse_event, page_choice):
+            if page_choice == 'profile':
+                self.controller.show_frame(ProfilePage)
+            elif page_choice == 'workout':
+                self.controller.show_frame(WorkoutPage)
+            elif page_choice == 'habits':
+                self.controller.show_frame(HabitsPage)
+            elif page_choice == 'nutrition':
+                self.controller.show_frame(NutritionPage)
+            elif page_choice == 'settings':
+                self.controller.show_frame(SettingsPage)
+
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
 
@@ -531,13 +553,19 @@ class WorkoutPage(tk.Frame):
         # line of code below required to have a reference so the image doesn't get collected as garbage
         app_icon.image = app_icon_name_img
 
-        profile_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Profile', command=lambda:self.controller.show_frame(ProfilePage))
-        workout_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Workout', command=lambda:self.controller.show_frame(WorkoutPage))
-        habits_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Habits', command=lambda:self.controller.show_frame(HabitsPage))
-        nutrition_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Nutrition', command=lambda:self.controller.show_frame(NutritionPage))
-        settings_btn = tk.Button(menu_bar, font=('helvetica', 12), text='Settings', command=lambda:self.controller.show_frame(SettingsPage))        
+        profile_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Profile', background='blue')
+        workout_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Workout', background='blue')
+        habits_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Habits', background='blue')
+        nutrition_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Nutrition', background='blue')
+        settings_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Settings', background='blue')        
 
         toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
+
+        profile_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'profile'))
+        workout_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'workout'))
+        habits_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'habits'))
+        nutrition_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'nutrition'))
+        settings_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'settings'))
 
         app_icon.place(x=0, y=0)
         
