@@ -394,9 +394,11 @@ class ProfilePage(tk.Frame):
         search_bar = tk.Frame(self, background='grey', width=1000, height=50)
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
 
-        logout_btn = tk.Button(self, text='Logout', command=lambda:self.controller.show_frame(LoginPage))
+        search_bar_entry = tk.Entry(search_bar, font=('helvetica', 18))
+        logout_btn = tk.Button(search_bar, text='Logout', command=lambda:self.controller.show_frame(LoginPage))
         
-        logout_btn.place(x=1150, y=25, anchor='center')
+        search_bar_entry.place(x=380, y=25, anchor='center', width=700)
+        logout_btn.place(x=950, y=25, anchor='center')
     
     # widgets contained in the user section
     def create_user_section(self):
