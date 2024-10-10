@@ -704,6 +704,11 @@ class WorkoutPage(tk.Frame):
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+            # displays notification message indicating that the exercise entry has been added
+            exercise_added_notif.config(text='Exercise has been added!')
+            # after a 1 second delay, it will erase the notificaiton display
+            workout_wm.after(1000, erase_exercise_notification)
+
         # add the time spent during exercises in the workout entry for the day
         def add_time_entry():
             # check if workout entry for the day has been created, if not create one with today's date being the key
@@ -718,6 +723,10 @@ class WorkoutPage(tk.Frame):
 
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
+
+        # erases the exercise notification message
+        def erase_exercise_notification():
+            exercise_added_notif.config(text='')
 
         workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry (Daily)', background='red')
         
@@ -734,6 +743,7 @@ class WorkoutPage(tk.Frame):
         weight_used_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=weight_used_var)
 
         add_exercise = tk.Button(workout_wm, font=('helvetica', 12), text='Add Exercise', command=add_exercise_entry)
+        exercise_added_notif = tk.Label(workout_wm, font=('helvetica', 12), background='red', foreground='green')
 
         time_spent = tk.Label(workout_wm, font=('helvetica', 12), text='Time Spent (in Mins):', background='red')
         time_spent_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=time_spent_var)
@@ -755,6 +765,7 @@ class WorkoutPage(tk.Frame):
         weight_used_entry.place(x=120, y=300)
 
         add_exercise.place(x=200, y=340)
+        exercise_added_notif.place(x=170, y=380)
 
         time_spent.place(x=120, y=420)
         time_spent_entry.place(x=120, y=450)

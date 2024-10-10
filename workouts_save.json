@@ -34,5 +34,89 @@
                 "weight_used": "123123"
             }
         ]
+    },
+    "10-10-2024": {
+        "date": "10-10-2024",
+        "time_spent": 0,
+        "exercise_list": [
+            {
+                "exercise_name": "Bench press",
+                "set_count": "3",
+                "rep_count": "14",
+                "weight_used": "123"
+            },
+            {
+                "exercise_name": "triceps extensions",
+                "set_count": "4",
+                "rep_count": "20",
+                "weight_used": "60"
+            },
+            {
+                "exercise_name": "triceps extensions",
+                "set_count": "4",
+                "rep_count": "20",
+                "weight_used": "60"
+            },
+            {
+                "exercise_name": "bench press",
+                "set_count": "3",
+                "rep_count": "8",
+                "weight_used": "180"
+            },
+            {
+                "exercise_name": "goblet squats",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "40"
+            },
+            {
+                "exercise_name": "goblet squats",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "40"
+            },
+            {
+                "exercise_name": "bench press",
+                "set_count": "3",
+                "rep_count": "5",
+                "weight_used": "200"
+            },
+            {
+                "exercise_name": "incline bench press",
+                "set_count": "3",
+                "rep_count": "12",
+                "weight_used": "40"
+            },
+            {
+                "exercise_name": "weighted pushups",
+                "set_count": "3",
+                "rep_count": "8",
+                "weight_used": "40"
+            },
+            {
+                "exercise_name": "lateral raises",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "20"
+            },
+            {
+                "exercise_name": "bent over rows",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "12"
+            },
+            {
+                "exercise_name": "shoulder shrugs",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "40"
+            },
+            {
+                "exercise_name": "bench press",
+                "set_count": "3",
+                "rep_count": "1",
+                "weight_used": "240"
+            }
+        ]
     }
 }
