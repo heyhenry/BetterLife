@@ -3,6 +3,6 @@
         "display_name": "Henry",
         "username": "henry",
         "password": "123123",
-        "stay_logged": true
+        "stay_logged": false
     }
 }
