@@ -545,21 +545,6 @@ class WorkoutPage(tk.Frame):
 
     # menu bar for all pages
     def create_menu_bar(self):
-        # toggle the logged in status
-        def toggle_logged_status():
-            if users['user'].stay_logged == False:
-                users['user'].stay_logged = True
-                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-                with open('user_save.json', 'w') as outfile:
-                    outfile.write(json_object)
-                toggle_logged_in.config(background='green')
-            else:
-                users['user'].stay_logged = False
-                json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
-                with open('user_save.json', 'w') as outfile:
-                    outfile.write(json_object)
-                toggle_logged_in.config(background='red')
-
         # redirects the page based on label clicked
         def redirect_page(mouse_event, page_choice):
             if page_choice == 'profile':
@@ -581,8 +566,19 @@ class WorkoutPage(tk.Frame):
         def on_exit_hover(mouse_event, widget_name):
             widget_name.config(foreground='black', font=('helvetica', 18))
 
-        menu_bar = tk.Frame(self, background='blue', width=200, height=800)
-        menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
+        # toggling the 'stay logged in' status
+        def toggle_status(mouse_event, widget_label):
+            if users['user'].stay_logged == False:
+                widget_label.config(image=img_on)
+                users['user'].stay_logged = True
+            else:
+                widget_label.config(image=img_off)
+                users['user'].stay_logged = False
+
+            json_object = json.dumps(users, indent=4, default=self.controller.custom_serializer)
+
+            with open('user_save.json', 'w') as outfile:
+                outfile.write(json_object)
 
         menu_bar = tk.Frame(self, background='blue', width=200, height=800)
         menu_bar.grid(row=0, rowspan=4, column=0, sticky='nswe')
@@ -597,13 +593,26 @@ class WorkoutPage(tk.Frame):
         # line of code below required to have a reference so the image doesn't get collected as garbage
         app_icon.image = app_icon_name_img
 
-        profile_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Profile', background='blue')
+        profile_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Profile', background='blue', activeforeground='white')
         workout_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Workout', background='blue')
         habits_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Habits', background='blue')
         nutrition_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Nutrition', background='blue')
         settings_btn = tk.Label(menu_bar, font=('helvetica', 18), text='Settings', background='blue')        
 
-        toggle_logged_in = tk.Button(menu_bar, font=('helvetica', 12), text='Stay Logged In', command=toggle_logged_status)
+        max_size = (60, 60)
+
+        img_on = Image.open('ui_assets/switch-on.png')
+        img_on.thumbnail(max_size)
+        img_on = ImageTk.PhotoImage(img_on)
+
+        img_off = Image.open('ui_assets/switch-off.png')
+        img_off.thumbnail(max_size)
+        img_off = ImageTk.PhotoImage(img_off)
+
+        logged_status_text = tk.Label(menu_bar, font=('helvetica', 12, 'bold'), text='Stay logged in:', background='blue')
+        logged_status = tk.Label(menu_bar, image=img_off, background='blue')
+        logged_status.on_photo = img_on
+        logged_status.off_photo = img_off
 
         app_icon.place(x=0, y=0)
         
@@ -613,7 +622,8 @@ class WorkoutPage(tk.Frame):
         nutrition_btn.place(x=50, y=450)
         settings_btn.place(x=50, y=500)
 
-        toggle_logged_in.place(x=40, y=650, width=120)
+        logged_status_text.place(x=40, y=650) #w=120
+        logged_status.place(x=60, y=680)
 
         # bind actions
         profile_btn.bind("<Button-1>", lambda mouse_event: redirect_page(mouse_event,'profile'))
@@ -637,11 +647,13 @@ class WorkoutPage(tk.Frame):
         settings_btn.bind("<Enter>", lambda mouse_event: on_hover(mouse_event, settings_btn))
         settings_btn.bind("<Leave>", lambda mouse_event: on_exit_hover(mouse_event, settings_btn))
 
-        # changes button colour to indicate toggle status
+        logged_status.bind('<Button-1>', lambda mouse_event: toggle_status(mouse_event, logged_status))
+
+        # starts page with correct logged in status
         if users['user'].stay_logged == False:
-            toggle_logged_in.config(background='red')
+            logged_status.config(image=img_off)
         else:
-            toggle_logged_in.config(background='green')
+            logged_status.config(image=img_on)
 
     # widgets contained in the search bar
     def create_search_bar(self):
