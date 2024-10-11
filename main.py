@@ -729,6 +729,11 @@ class WorkoutPage(tk.Frame):
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+            exercise_name_var.set('')
+            set_count_var.set('')
+            rep_count_var.set('')
+            weight_used_var.set('')
+
             # displays notification message indicating that the exercise entry has been added
             exercise_added_notif.config(text='Exercise has been added!')
             # after a 1 second delay, it will erase the notificaiton display
@@ -748,6 +753,8 @@ class WorkoutPage(tk.Frame):
 
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
+
+            time_spent_var.set('')
 
             time_added_notif.config(text='Time spent has been added!')
 
@@ -798,7 +805,7 @@ class WorkoutPage(tk.Frame):
         weight_used_entry.place(x=120, y=300)
 
         add_exercise.place(x=200, y=340)
-        exercise_added_notif.place(x=170, y=380)
+        exercise_added_notif.place(x=165, y=380)
 
         time_spent.place(x=120, y=420)
         time_spent_entry.place(x=120, y=450)

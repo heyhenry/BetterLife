@@ -121,13 +121,43 @@
     },
     "11-10-2024": {
         "date": "11-10-2024",
-        "time_spent": 21,
+        "time_spent": 31,
         "exercise_list": [
             {
                 "exercise_name": "weighted jumping jacks",
                 "set_count": "5",
                 "rep_count": "20",
                 "weight_used": "15"
+            },
+            {
+                "exercise_name": "rear delt raises",
+                "set_count": "3 ",
+                "rep_count": "10",
+                "weight_used": "10"
+            },
+            {
+                "exercise_name": "triceps pressdowns",
+                "set_count": "3",
+                "rep_count": "15",
+                "weight_used": "10"
+            },
+            {
+                "exercise_name": "triceps extensions",
+                "set_count": "3",
+                "rep_count": "5",
+                "weight_used": "10"
+            },
+            {
+                "exercise_name": "triceps extensions",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "5"
+            },
+            {
+                "exercise_name": "push ups",
+                "set_count": "3",
+                "rep_count": "10",
+                "weight_used": "10"
             }
         ]
     }
