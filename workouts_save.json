@@ -118,5 +118,17 @@
                 "weight_used": "240"
             }
         ]
+    },
+    "11-10-2024": {
+        "date": "11-10-2024",
+        "time_spent": 21,
+        "exercise_list": [
+            {
+                "exercise_name": "weighted jumping jacks",
+                "set_count": "5",
+                "rep_count": "20",
+                "weight_used": "15"
+            }
+        ]
     }
 }

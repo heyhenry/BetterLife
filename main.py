@@ -749,9 +749,16 @@ class WorkoutPage(tk.Frame):
             with open('workouts_save.json', 'w') as outfile:
                 outfile.write(json_object)
 
+            time_added_notif.config(text='Time spent has been added!')
+
+            workout_wm.after(1000, erase_time_notification)
+
         # erases the exercise notification message
         def erase_exercise_notification():
             exercise_added_notif.config(text='')
+
+        def erase_time_notification():
+            time_added_notif.config(text='')
 
         workout_form_title = tk.Label(workout_wm, font=('helvetica', 18), text='Workout Entry (Daily)', background='red')
         
@@ -774,6 +781,7 @@ class WorkoutPage(tk.Frame):
         time_spent_entry = tk.Entry(workout_wm, font=('helvetica', 18), textvariable=time_spent_var)
 
         add_time = tk.Button(workout_wm, font=('helvetica', 12), text='Add Time', command=add_time_entry)
+        time_added_notif = tk.Label(workout_wm, font=('helvetica', 12), background='red', foreground='green')
 
         workout_form_title.place(x=130, y=10)
 
@@ -796,6 +804,7 @@ class WorkoutPage(tk.Frame):
         time_spent_entry.place(x=120, y=450)
 
         add_time.place(x=200, y=490)
+        time_added_notif.place(x=140, y=520)
 
     def weight_graph(self):
         graph_one = tk.Frame(self, background='magenta', width=500, height=300)
