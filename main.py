@@ -407,14 +407,27 @@ class ProfilePage(tk.Frame):
 
     # widgets contained in the search bar
     def create_search_bar(self):
+
+        def user_logout(mouse_event):
+            self.controller.show_frame(LoginPage)
+
+        max_size = (60,60)
+
+        logout_icon = Image.open('ui_assets/logout.png')
+        logout_icon.thumbnail(max_size)
+        logout_icon = ImageTk.PhotoImage(logout_icon)
+
         search_bar = tk.Frame(self, background='grey', width=1000, height=50)
         search_bar.grid(row=0, column=1, columnspan=2, sticky='nswe')
 
         search_bar_entry = tk.Entry(search_bar, font=('helvetica', 18))
-        logout_btn = tk.Button(search_bar, text='Logout', command=lambda:self.controller.show_frame(LoginPage))
+        logout = tk.Label(search_bar, image=logout_icon, background='grey')
+        logout.logout_photo = logout_icon
         
         search_bar_entry.place(x=380, y=25, anchor='center', width=700)
-        logout_btn.place(x=950, y=25, anchor='center')
+        logout.place(x=950, y=25, anchor='center')
+
+        logout.bind("<Button-1>", lambda mouse_event: user_logout(mouse_event))
     
     # widgets contained in the user section
     def create_user_section(self):
